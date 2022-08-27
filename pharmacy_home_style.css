@@ -1,0 +1,95 @@
+body {
+    margin: 0%;
+    min-height: 700px;
+    overflow: auto;
+}
+
+header {
+    background-color: rgb(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    position: fixed;
+    top: 0%;
+    z-index: 1;
+    font-size: xxx-large;
+    padding-top: 1%;
+    left: 0%;
+    right: 0%;
+    margin: 0%;
+    padding-bottom: 1%;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0%;
+    z-index: 1;
+}
+
+#navigate {
+    position: fixed;
+    top: 0%;
+    z-index: 1;
+    margin-top:5.5%;
+    width: 100%;
+}
+
+.menu {
+    margin: 0%;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.menu li {
+    display: inline-block;
+    padding: 10px;
+}
+
+.menu li a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+
+}
+
+.menu li:hover {
+    background-color: rgb(0, 0, 0, 0.7);
+}
+
+.menu li:nth-child(2):hover #dropdown_1 {
+    display: block;
+}
+
+.menu li:nth-child(3):hover #dropdown_2 {
+    display: block;
+}
+
+#dropdown_1,
+#dropdown_2 {
+    position: absolute;
+    width: auto;
+    max-width: 150px;
+    display: none;
+    background-color: whitesmoke;
+    padding: 0%;
+    top: 100%
+}
+
+#dropdown_1 li,
+#dropdown_2 li {
+    display: block;
+}
+
+#dropdown_1 li a,
+#dropdown_2 li a {
+    color: steelblue;
+    font-size: 16px;
+}
+
+#dropdown_1 li:hover,
+#dropdown_2 li:hover {
+    background-color: gainsboro;
+}
