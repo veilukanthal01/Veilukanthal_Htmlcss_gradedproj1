@@ -37,32 +37,94 @@
             </ul>
         </nav>
     </div>
+    <div class="slideshow-container">
 
-
-    <!-- partial:index.partial.html -->
-    <div class="slider">
-        <div class="slide-track">
-            <div class="slide">
-                <img src="images/Animation/ani1.jpg" height="300" width="500" alt="">
-            </div>
-            <div class="slide">
-                <img src="images/Animation/ani2.png" height="300" width="600" alt="">
-            </div>
-            <div class="slide">
-                <img src="images/Animation/ani3.jpg" height="300" width="600" alt="">
-            </div>
-            <div class="slide">
-                <img src="images/Animation/ani4.jpg" height="300" width="600" alt="">
-            </div>
-            <div class="slide">
-                <img src="images/Animation/ani5.jpg" height="300" width="500" alt="">
-            </div>
-
+        <div class="mySlides fade">
+            <img src="images/Animation/ani1.jpg">
         </div>
+
+        <div class="mySlides fade">
+            <img src="images/Animation/ani2.png">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="images/Animation/ani3.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="images/Animation/ani4.jpg">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="images/Animation/ani5.jpg">
+        </div>
+
     </div>
+    <br>
 
-  
+    <section class="main">
+        <div class="container">
+            <a href="#">
+                <img src="images/Products/c1.jpg" alt="Brown Leather King Size Chair" class="image">
+                <div class="overlay">Brown Leather King Size Chair</div>
+            </a>
+        </div>
 
+        <div class="container">
+            <a href="#">
+                <img src="images/Products/c2.jpg" alt="Brown Leather King Size Chair" class="image">
+                <div class="overlay">Brown Leather King Size Chair</div>
+            </a>
+        </div>
+
+        <div class="container">
+            <a href="#">
+                <img src="images/Products/c3.jpg" alt="Brown Leather King Size Chair" class="image">
+                <div class="overlay">Brown Leather King Size Chair</div>
+            </a>
+        </div>
+
+        <div class="container">
+            <a href="#">
+                <img src="images/Products/c4.jpg" alt="Brown Leather King Size Chair" class="image">
+                <div class="overlay">Brown Leather King Size Chair</div>
+            </a>
+        </div>
+    </section>
+
+
+
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var header = document.getElementById("navigate");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+
+            slides[slideIndex - 1].style.display = "block";
+
+            setTimeout(showSlides, 4000); // Change image every 2 seconds
+        }
+    </script>
     <footer>
         <h4>@Copyright. Only for demonstration purposes</h4>
     </footer>
