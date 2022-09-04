@@ -2,6 +2,9 @@
 
 <head>
     <title>Pharmacy management</title>
+
+
+
     <style>
         .container {
             background-color: #FDFEFE;
@@ -15,7 +18,7 @@
             margin-bottom: 10%;
             padding: 10px 0px;
             position: relative;
-            width: 90%;
+            width: auto;
             overflow: scroll;
             overflow-y: scroll;
             overflow-x: hidden;
@@ -34,8 +37,9 @@
         .container>#image-container {
             display: inline-block;
             text-align: left;
-            width: 48%;
-            height: 100%;
+            width: 700px;
+            height: 650px;
+            position: fixed;
         }
 
         .container>#image-container>img {
@@ -79,6 +83,98 @@
         h2 {
             margin-left: 2%;
         }
+
+        .select-input-row-3 {
+            margin-top: 5%;
+            width: 200px;
+            padding: 20px;
+            height: auto;
+            outline: none;
+            margin-top: 10%;
+
+        }
+
+        /*select {
+            height: 200px;
+            line-height: 50px;
+            -webkit-appearance: menulist-button;
+            width: 200px;
+            -moz-appearance: none;
+            margin-left: 2%;
+            background-color: white;
+            max-height: 146px;
+            overflow: scroll;
+            overflow-x: hidden;
+            outline: none;
+        }*/
+
+
+        select {
+            width: 300px;
+            outline: none;
+            -moz-appearance: none;
+        }
+
+        option {
+            font-size: 100px;
+            box-shadow: 0 0 0 3px lime;
+            outline: none;
+        }
+
+        option:checked {
+            font-size: 100px;
+            box-shadow: 0 0 0 3px lime;
+            outline: none;
+        }
+
+        input[type=checkbox] {
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 2%;
+        }
+
+        input[type=checkbox]:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            background-color: #e9e9e9;
+        }
+
+        input[type=checkbox]:checked:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            background-color: #1E80EF;
+        }
+
+        input[type=checkbox]:checked:after {
+            content: "";
+            display: block;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+            position: absolute;
+            top: 2px;
+            left: 6px;
+        }
+        .check-container label{
+            margin-left: 2%;
+        }
+        .check-container{
+            margin-left: 2%;
+        }
     </style>
 </head>
 
@@ -96,6 +192,36 @@
             <input class="text_input" placeholder="Contact Number" type="text">
             <input class="text_input" placeholder="Email Id" type="text">
         </div>
+
+        <h2>2. Address</h2>
+        <div class="text_input_row_1">
+            <input class="text_input" placeholder="House Number" type="text">
+            <input class="text_input" placeholder="Street" type="text">
+        </div>
+        <div class="text_input_row_2">
+            <input class="text_input" placeholder="Area" type="text">
+        </div>
+        <div class="select-input-row-3">
+            <label for="inputDistrict">District</label>
+            <select class="form-control" id="inputDistrict" size="5">
+                <option value="" selected="selected">Choose</option>
+            </select>
+        </div>
+
+        <h2>3. Choose the Test Type</h2>
+        <div class="check-container">
+            <input type="checkbox" id="type1" name="type1" value="CBC">
+            <label for="type1"> CBC</label><br>
+            <input type="checkbox" id="type2" name="type2" value="Complete Urine">
+            <label for="type2"> Complete Urine</label><br>
+            <input type="checkbox" id="type3" name="type3" value="Lipid Profile">
+            <label for="type3"> Lipid Profile</label><br>
+            <input type="checkbox" id="type4" name="type4" value="Thyroid Stimulating Hormone(TSH)">
+            <label for="type4"> Thyroid Stimulating Hormone(TSH)</label><br>
+            <input type="checkbox" id="type5" name="type5" value="Glucose Test">
+            <label for="type5"> Glucose Test</label><br><br>
+        </div>
+
     </div>
     <div id="image-container">
         <img src="images/Lab-Test/lab-test.jpg" alt="contact image">
@@ -103,9 +229,14 @@
 </div>
 
 <script>
-    $(function () {
-        $('input.text_input').blur();
-    });
+    window.onload = function () {
+        var disSel = document.getElementById("inputDistrict");
+        var TamilNadu = ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"];
+
+        for (var i = 0; i < TamilNadu.length; i++) {
+            disSel.options[disSel.options.length] = new Option(TamilNadu[i], TamilNadu[i]);
+        }
+    }
 </script>
 
 </html>
