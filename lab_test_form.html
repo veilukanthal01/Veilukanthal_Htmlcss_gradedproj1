@@ -153,6 +153,7 @@
 
         .check-container {
             margin-left: 2%;
+            margin-top: 10%;
         }
 
         option {
@@ -251,7 +252,6 @@
         .dropdown {
             position: relative;
             cursor: pointer;
-            left: 20%;
         }
 
         .dropdown .dropdown-toggle {
@@ -307,6 +307,7 @@
             visibility: hidden;
             overflow: auto;
             max-height: 200px;
+            margin-left: 20%;
         }
 
         .dropdown .dropdown-menu[aria-expanded="true"] {
@@ -354,16 +355,19 @@
         <div class="text_input_row_2">
             <input class="text_input" placeholder="Area" type="text">
         </div>
+
+        <p>District</p>
         <div class="dropdown">
-            <button class="dropdown-toggle" type="button" aria-haspopup="true">
-                Select from Options
+           
+            <button class="dropdown-toggle" type="button" aria-haspopup>
+                Choose
             </button>
-            <ul class="dropdown-menu" id="inputDistrict" role="listbox" aria-expanded="false">
+            <ul class="dropdown-menu" id="inputDistrict" role="listbox" aria-expanded="true">
             </ul>
         </div>
 
-        <h2>3. Choose the Test Type</h2>
-        <div class="check-container">
+        <div class="check-container" id="checkDiv">
+            <h2>3. Choose the Test Type</h2>
             <input type="checkbox" id="type1" name="type1" value="CBC">
             <label for="type1"> CBC</label><br>
             <input type="checkbox" id="type2" name="type2" value="Complete Urine">
@@ -485,10 +489,12 @@
                 menu.children[0].focus();
                 document.addEventListener('click', handleClickOut);
                 dropDown.dispatchEvent(new Event('opened'));
+                document.getElementById("checkDiv").style.marginTop="30%";
             } else {
                 toggler.classList.remove('active');
                 dropDown.dispatchEvent(new Event('closed'));
                 document.removeEventListener('click', handleClickOut);
+                document.getElementById("checkDiv").style.marginTop="5%";
             }
         }
     }
@@ -501,10 +507,12 @@
 
     dropDown.element.addEventListener('opened', e => {
         console.log('opened', dropDown.value);
+        document.getElementById("checkDiv").style.marginTop="30%";
     });
 
     dropDown.element.addEventListener('closed', e => {
         console.log('closed', dropDown.value);
+        document.getElementById("checkDiv").style.marginTop="5%";
     });
 
     dropDown.toggle();
