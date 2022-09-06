@@ -215,9 +215,9 @@
             background-color: #fff;
             border: 4px solid skyblue;
             border-radius: 8px;
-            height:50px;
-            width:400px;
-            margin-left:3%;
+            height: 50px;
+            width: 400px;
+            margin-left: 3%;
             margin-bottom: 5%;
         }
 
@@ -243,8 +243,90 @@
             padding: .25rem .5rem .25rem 0;
             border-left-width: 0;
         }
-        .datetime-container{
+
+        .datetime-container {
             margin-bottom: 5%;
+        }
+
+        .dropdown {
+            position: relative;
+            cursor: pointer;
+            left: 20%;
+        }
+
+        .dropdown .dropdown-toggle {
+            appearance: none;
+            background: white;
+            color: black;
+            border: 1px solid black;
+            padding: 12px 35px 12px 12px;
+            border-radius: 3px;
+            text-align: left;
+            position: relative;
+            max-width: 300px;
+            width:300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .dropdown .dropdown-toggle::after {
+            content: '';
+            border-width: 6px;
+            border-radius: 3px;
+            border-style: solid;
+            border-color: transparent;
+            border-top-color: inherit;
+            position: absolute;
+            right: 12px;
+            top: calc(50% + 3px);
+            transform: translateY(-50%);
+        }
+
+        .dropdown .dropdown-toggle.active::after {
+            border-color: transparent;
+            border-bottom-color: inherit;
+            top: calc(50% - 3px);
+        }
+
+        .dropdown .dropdown-menu {
+            position: absolute;
+            top: 80%;
+            transform: translateX(-50%);
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(150, 150, 150, 0.65);
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+            max-width: 320px;
+            width: calc(100% + 24px);
+            border-radius: 3px;
+            z-index: 10;
+            visibility: hidden;
+            overflow: auto;
+            max-height: 200px;
+        }
+
+        .dropdown .dropdown-menu[aria-expanded="true"] {
+            visibility: visible;
+        }
+
+        .dropdown .dropdown-menu>li {
+            height: 35px;
+            display: block;
+            align-items: center;
+            padding: 10px 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .dropdown .dropdown-menu>li:hover,
+        .dropdown .dropdown-menu>li:focus {
+            outline: none;
+            background: #f2f2f2;
         }
     </style>
 </head>
@@ -272,11 +354,12 @@
         <div class="text_input_row_2">
             <input class="text_input" placeholder="Area" type="text">
         </div>
-        <div class="select-input-row-3">
-            <label for="inputDistrict">District</label>
-            <select class="form-control" id="inputDistrict" size="5">
-                <option value="" selected="selected">Choose</option>
-            </select>
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" aria-haspopup="true">
+                Select from Options
+            </button>
+            <ul class="dropdown-menu" id="inputDistrict" role="listbox" aria-expanded="false">
+            </ul>
         </div>
 
         <h2>3. Choose the Test Type</h2>
@@ -321,14 +404,110 @@
 </div>
 
 <script>
-    window.onload = function () {
-        var disSel = document.getElementById("inputDistrict");
+
+
+    function DropDown(dropDown) {
         var TamilNadu = ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kanchipuram", "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Salem", "Sivaganga", "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tiruppur", "Tiruvallur", "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram", "Virudhunagar"];
 
+        var ul = document.getElementById("inputDistrict");
+
         for (var i = 0; i < TamilNadu.length; i++) {
-            disSel.options[disSel.options.length] = new Option(TamilNadu[i], TamilNadu[i]);
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(TamilNadu[i]));
+            ul.appendChild(li);
+        }
+
+        const [toggler, menu] = dropDown.children;
+
+        const handleClickOut = e => {
+            if (!dropDown) {
+                return document.removeEventListener('click', handleClickOut);
+            }
+
+            if (!dropDown.contains(e.target)) {
+                this.toggle(false);
+            }
+        };
+
+        const setValue = (item) => {
+            const val = item.textContent;
+            toggler.textContent = val;
+            this.value = val;
+            this.toggle(false);
+            dropDown.dispatchEvent(new Event('change'));
+            toggler.focus();
+        }
+
+        const handleItemKeyDown = (e) => {
+            e.preventDefault();
+
+            if (e.keyCode === 38 && e.target.previousElementSibling) { // up
+                e.target.previousElementSibling.focus();
+            } else if (e.keyCode === 40 && e.target.nextElementSibling) { // down
+                e.target.nextElementSibling.focus();
+            } else if (e.keyCode === 27) { // escape key
+                this.toggle(false);
+            } else if (e.keyCode === 13 || e.keyCode === 32) { // enter or spacebar key
+                setValue(e.target);
+            }
+        }
+
+        const handleToggleKeyPress = (e) => {
+            e.preventDefault();
+
+            if (e.keyCode === 27) { // escape key
+                this.toggle(false);
+            } else if (e.keyCode === 13 || e.keyCode === 32) { // enter or spacebar key
+                this.toggle(true);
+            }
+        }
+
+        toggler.addEventListener('keydown', handleToggleKeyPress);
+        toggler.addEventListener('click', () => this.toggle());
+        [...menu.children].forEach(item => {
+            item.addEventListener('keydown', handleItemKeyDown);
+            item.addEventListener('click', () => setValue(item));
+        });
+
+        this.element = dropDown;
+
+        this.value = toggler.textContent;
+
+        this.toggle = (expand = null) => {
+            expand = expand === null
+                ? menu.getAttribute('aria-expanded') !== 'true'
+                : expand;
+
+            menu.setAttribute('aria-expanded', expand);
+
+            if (expand) {
+                toggler.classList.add('active');
+                menu.children[0].focus();
+                document.addEventListener('click', handleClickOut);
+                dropDown.dispatchEvent(new Event('opened'));
+            } else {
+                toggler.classList.remove('active');
+                dropDown.dispatchEvent(new Event('closed'));
+                document.removeEventListener('click', handleClickOut);
+            }
         }
     }
+
+    const dropDown = new DropDown(document.querySelector('.dropdown'));
+
+    dropDown.element.addEventListener('change', e => {
+        console.log('changed', dropDown.value);
+    });
+
+    dropDown.element.addEventListener('opened', e => {
+        console.log('opened', dropDown.value);
+    });
+
+    dropDown.element.addEventListener('closed', e => {
+        console.log('closed', dropDown.value);
+    });
+
+    dropDown.toggle();
 </script>
 
 </html>
