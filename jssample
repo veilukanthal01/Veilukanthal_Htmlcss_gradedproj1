@@ -38,13 +38,13 @@ function displayResults(responseJson) {
   city.innerHTML = `${responseJson.name} ,${responseJson.sys.country}`;
 
   let temp = document.querySelector('.temp');
-  temp.innerHTML = `${responseJson.main.temp} °C`;
+  temp.innerHTML = `${Math.round(responseJson.main.temp)} °C`;
 
   let weather = document.querySelector('.weather');
   weather.innerHTML = `${responseJson.weather[0].main}`;
 
   let hilow = document.querySelector('.hi-low');
-  hilow.innerHTML = `${responseJson.main.temp_min}°c/ ${responseJson.main.temp_min}°c `;
+  hilow.innerHTML = `${Math.round(responseJson.main.temp_min)}°c/ ${Math.round(responseJson.main.temp_min)}°c `;
 
   let now = new Date();
   let date = document.querySelector('.date');
@@ -59,10 +59,5 @@ function displayResults(responseJson) {
     let year =date.getFullYear();
     return `${day} ${date.getDate()} ${month} ${year}`;
   }
-
-
-
-
-
 
 }
