@@ -24,8 +24,8 @@ function getResult(cityName) {
   })
     .then((responseJson) => {
       console.log(responseJson.cod);
-      if(responseJson.cod == 200)
-      displayResults(responseJson);
+      if (responseJson.cod == 200)
+        displayResults(responseJson);
     })
     .catch((err) => {
       console.log("Error in calling API ", err);
@@ -33,7 +33,30 @@ function getResult(cityName) {
 
 }
 
-function displayResults(responseJson){
-  const city = document.querySelector('.city'); 
-  city.innerHTML=responseJson.name + ", " + responseJson.sys.country;
+function displayResults(responseJson) {
+  let city = document.querySelector('.city');
+  city.innerHTML = `${responseJson.name} ,${responseJson.sys.country}`;
+
+  let temp = document.querySelector('.temp');
+  temp.innerHTML = `${responseJson.main.temp} &#8451;`;
+
+  let weather = document.querySelector('.weather');
+  weather.innerHTML = `${responseJson.weather[0].main}`;
+
+  let hilow = document.querySelector('.hi-low');
+  hilow.innerHTML = `${responseJson.main.temp_min}	&#8451; / ${responseJson.main.temp_min}&#8451 `;
+
+  let now = new Date();
+  let date = document.querySelector('.date');
+  date.innerHTML = dateBuilder(now);
+
+  function dateBuilder(date) {
+    return date;
+  }
+
+
+
+
+
+
 }
