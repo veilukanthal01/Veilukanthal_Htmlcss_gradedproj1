@@ -24,7 +24,7 @@ function getResult(cityName) {
   })
     .then((responseJson) => {
       console.log(responseJson.cod);
-      if (responseJson.cod == 200)
+      if (responseJson.cod === 200)
         displayResults(responseJson);
     })
     .catch((err) => {
@@ -38,20 +38,26 @@ function displayResults(responseJson) {
   city.innerHTML = `${responseJson.name} ,${responseJson.sys.country}`;
 
   let temp = document.querySelector('.temp');
-  temp.innerHTML = `${responseJson.main.temp} &#8451;`;
+  temp.innerHTML = `${responseJson.main.temp} °C`;
 
   let weather = document.querySelector('.weather');
   weather.innerHTML = `${responseJson.weather[0].main}`;
 
   let hilow = document.querySelector('.hi-low');
-  hilow.innerHTML = `${responseJson.main.temp_min}	&#8451; / ${responseJson.main.temp_min}&#8451 `;
+  hilow.innerHTML = `${responseJson.main.temp_min}°c/ ${responseJson.main.temp_min}°c `;
 
   let now = new Date();
   let date = document.querySelector('.date');
   date.innerHTML = dateBuilder(now);
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
 
   function dateBuilder(date) {
-    return date;
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    let day = days[date.getDay()];
+    let month = months[date.getMonth()];
+    let year =date.getFullYear();
+    return `${day} ${date.getDate()} ${month} ${year}`;
   }
 
 
